@@ -9,7 +9,7 @@ type BicycleData = {
   name: string;
   type: string;
   color: string;
-  wheelSize: string;
+  wheelSize: number;
   price: number;
   description: string;
   status: BICYCLE_STATUS;

@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import process from 'process';
 import mongoose from 'mongoose';
 import bicycleRouter from './bicycleRouter';
+import statsRouter from './statsRouter';
 
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
@@ -9,6 +10,7 @@ const MONGO_DB_URL = 'mongodb+srv://evgminukova6:Vgmvk3DwmsDonoUi@cluster0.ed7ek
 
 app.use(express.json());
 app.use('/bicycle', bicycleRouter);
+app.use('/stats', statsRouter);
 
 async function initApp() {
   try {

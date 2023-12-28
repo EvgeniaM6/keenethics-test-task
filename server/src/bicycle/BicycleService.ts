@@ -1,13 +1,21 @@
 import Bicycle from './Bicycle';
-import { BicycleData } from '../models';
+import { BICYCLE_STATUS, BicycleData } from '../models';
 
 class BicycleService {
-  async create({ name, price }: { name: string; price: number }) {
-    return await Bicycle.create({ name, price });
+  async create(bicycleData: BicycleData) {
+    return await Bicycle.create(bicycleData);
   }
 
   async getAll() {
     return await Bicycle.find();
+  }
+
+  async getAllAvailable() {
+    return await Bicycle.find({ status: BICYCLE_STATUS.AVAILABLE });
+  }
+
+  async getAllBooked() {
+    return await Bicycle.find({ status: BICYCLE_STATUS.BUSY });
   }
 
   async getById(id: string) {
