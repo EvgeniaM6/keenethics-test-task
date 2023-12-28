@@ -23,7 +23,7 @@ class BicycleService {
   }
 
   async update(id: string, dataToUpdate: Partial<BicycleData>) {
-    return await Bicycle.findByIdAndUpdate(id, dataToUpdate);
+    return await Bicycle.findByIdAndUpdate(id, dataToUpdate, { new: true });
   }
 
   async delete(id: string) {
