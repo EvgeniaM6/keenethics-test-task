@@ -1,0 +1,1 @@
+export const APP_TITLE = 'ADMIN.BIKE-BOOKING.COM';

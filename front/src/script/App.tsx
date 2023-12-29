@@ -1,5 +1,12 @@
-export const App = () => {
-  console.log('Hello world!');
+import { Routes, Route } from 'react-router-dom';
+import { MainPage } from './pages';
 
-  return <div>Hello world!</div>;
+export const App = () => {
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+      </Routes>
+    </div>
+  );
 };
