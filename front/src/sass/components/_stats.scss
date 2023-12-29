@@ -1,0 +1,17 @@
+.stats {
+  padding: 10px;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  &__value {
+    font-weight: 700;
+  }
+
+  &__string {
+    margin-bottom: 5px;
+  }
+}

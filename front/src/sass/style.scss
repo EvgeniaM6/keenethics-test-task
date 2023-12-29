@@ -1,3 +1,12 @@
-body {
-  background-color: rgb(69, 110, 98);
-}
+@import './abstract/constants';
+
+@import './base/reset';
+@import './base/base';
+
+@import './components/header';
+@import './components/footer';
+@import './components/bicycle';
+@import './components/bicycle-form';
+@import './components/stats';
+
+@import './layouts/main-page';

@@ -1,0 +1,33 @@
+.main-page {
+
+  &__container {
+    display: flex;
+    justify-content: flex-end;
+    min-height: calc(100vh - 84px);
+  }
+
+  &__bicycles {
+    flex-grow: 1;
+    padding: 9px 9px 0 12px;
+    border-right: 1px solid $color-divider;
+  }
+
+  &__aside {
+    position: relative;
+  }
+
+  &__form {
+    width: 501.45px;
+    margin-right: 11.55px;
+    margin-bottom: 4px;
+    padding: 10px;
+  }
+
+  &__divider {
+    position: absolute;
+    left: 10px;
+    width: calc(100% - 10px);
+    height: 1px;
+    background-color: $color-divider;
+  }
+}
