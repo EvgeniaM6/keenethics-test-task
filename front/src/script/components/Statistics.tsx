@@ -7,23 +7,23 @@ export const Statistics = () => {
   const averageBikeCost = 0;
 
   return (
-    <div>
-      <h4>Statistics</h4>
-      <p>
+    <div className="main-page__stats stats">
+      <h4 className="stats__title">{'Statistics'.toUpperCase()}</h4>
+      <p className="stats__string">
         <span>Total Bikes:</span>
-        <strong>{totalBikes}</strong>
+        <strong className="stats__value">{` ${totalBikes}`}</strong>
       </p>
-      <p>
-        <span>Available Bikes:</span>
-        <strong>{availableBikes}</strong>
+      <p className="stats__string">
+        <span>Available Bikes :</span>
+        <strong className="stats__value">{` ${availableBikes}`}</strong>
       </p>
-      <p>
+      <p className="stats__string">
         <span>Booked Bikes:</span>
-        <strong>{bookedBikes}</strong>
+        <strong className="stats__value">{` ${bookedBikes}`}</strong>
       </p>
-      <p>
+      <p className="stats__string">
         <span>Average bike cost:</span>
-        <strong>{convertSumToStr(averageBikeCost)}</strong>
+        <strong className="stats__value">{` ${convertSumToStr(averageBikeCost)} `}</strong>
         <span>UAH/hr.</span>
       </p>
     </div>

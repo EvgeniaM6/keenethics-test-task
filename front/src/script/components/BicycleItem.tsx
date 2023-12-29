@@ -5,40 +5,47 @@ import { convertSumToStr } from '../utils';
 export const BicycleItem = ({ bicycle }: { bicycle: BicycleData }) => {
   const { name, type, color, id, status, price } = bicycle;
 
+  const [firstLetter, ...letters] = status.split('');
+  const statusStr: string = [firstLetter.toUpperCase(), ...letters].join('');
+
+  const statusesArr: BICYCLE_STATUS[] = Object.values(BICYCLE_STATUS).filter(
+    (stat) => stat.toLowerCase() !== status.toLowerCase()
+  );
+
   const [isShowStatuses, toggleIsShowStatuses] = useState(false);
 
-  const toggleStatuses = () => {
+  const toggleStatuses = (): void => {
     toggleIsShowStatuses(!isShowStatuses);
   };
 
   return (
-    <div>
-      <div>
+    <div className={`main-page__item bicycle ${status}`}>
+      <div className="bicycle__info">
         <p>
-          <strong>{name}</strong>
-          <span>{` - ${type} (${color})`}</span>
+          <strong className="bicycle__name">{name.toUpperCase()}</strong>
+          <span>{` - ${type.toUpperCase()} (${color.toUpperCase()})`}</span>
         </p>
-        <p>{`ID: ${id}`}</p>
-        <div>
-          <span>STATUS:</span>
-          <span>{status}</span>
-          <button onClick={toggleStatuses}>V</button>
+        <p className="bicycle__id">{`ID: ${id}`}</p>
+        <div className="bicycle__status status">
+          <span className="status__title">STATUS:</span>
+          <span className="status__value">{statusStr}</span>
+          <button className="status__arrow" onClick={toggleStatuses} />
           {isShowStatuses && (
-            <div>
-              {Object.keys(BICYCLE_STATUS)
-                .filter((stat) => stat.toLowerCase() !== status.toLowerCase())
-                .map((stat) => {
-                  return <button key={stat}>{stat}</button>;
-                })}
+            <div className="status__options">
+              {statusesArr.map((stat) => (
+                <button key={stat} className="status__btn">
+                  {stat}
+                </button>
+              ))}
             </div>
           )}
         </div>
       </div>
-      <div>
+      <div className="bicycle__price">
         <p>{`${convertSumToStr(price)} UAH/hr.`}</p>
       </div>
-      <div>
-        <button>X</button>
+      <div className="bicycle__cross">
+        <button className="bicycle__cross-btn" />
       </div>
     </div>
   );

@@ -30,7 +30,7 @@ export const BicyclesContainer = () => {
   ];
 
   return (
-    <div>
+    <>
       {bicyclesArr
         .sort((bicycle1: BicycleData, bicycle2: BicycleData) =>
           bicycle1.status.localeCompare(bicycle2.status)
@@ -38,6 +38,6 @@ export const BicyclesContainer = () => {
         .map((bicycle: BicycleData) => {
           return <BicycleItem key={bicycle._id} bicycle={bicycle} />;
         })}
-    </div>
+    </>
   );
 };

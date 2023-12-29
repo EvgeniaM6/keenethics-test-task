@@ -3,10 +3,14 @@ export const Footer = () => {
   const lastName = 'LastName';
 
   return (
-    <footer>
-      <div>
-        <span>Developer:</span>
-        <span>{`${firstName} ${lastName}`}</span>
+    <footer className="footer">
+      <div className="container">
+        <div className="footer__container">
+          <div className="footer__dev dev">
+            <span className="dev__title">Developer:</span>
+            <span className="dev__name">{`${firstName} ${lastName}`}</span>
+          </div>
+        </div>
       </div>
     </footer>
   );
