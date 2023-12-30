@@ -17,7 +17,12 @@
     margin-bottom: 10px;
   }
 
+  &__field {
+    position: relative;
+  }
+
   input, textarea {
+    width: 100%;
     border: none;
     border-radius: 5px;
     font-size: 12px;
@@ -43,6 +48,15 @@
   &__description {
     height: 75px;
     resize: none;
+  }
+
+  &__alert {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-unavailable;
+    font-size: 10px;
   }
 
   &__btn {
