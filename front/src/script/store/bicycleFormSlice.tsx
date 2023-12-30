@@ -18,8 +18,11 @@ const bicycleFormSlice = createSlice({
     setBicycleFormValues(state, action) {
       return { ...state, ...(action.payload as FormValues) };
     },
+    resetBicycleFormValues(state) {
+      return { ...state, ...initialState };
+    },
   },
 });
 
-export const { setBicycleFormValues } = bicycleFormSlice.actions;
+export const { setBicycleFormValues, resetBicycleFormValues } = bicycleFormSlice.actions;
 export default bicycleFormSlice.reducer;

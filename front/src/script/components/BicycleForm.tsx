@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { BICYCLE_STATUS, BicycleData, FormValues } from '../models';
 import { NumberInput, TextInput, TextareaElem } from './inputElems';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { setBicycleFormValues } from '../store/bicycleFormSlice';
+import { resetBicycleFormValues, setBicycleFormValues } from '../store/bicycleFormSlice';
 import { useAddBicycleMutation } from '../redux/bicycleApi';
 
 export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) => {
@@ -27,6 +27,7 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
 
     await addBicycle(newBicycle);
     reset();
+    dispatch(resetBicycleFormValues());
     reloadBicycles();
   };
 
