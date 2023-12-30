@@ -1,6 +1,13 @@
+import { useGetAllBicyclesQuery } from '../redux/bicycleApi';
 import { BicycleForm, BicyclesContainer, Footer, Header, Statistics } from '../components';
 
 export const MainPage = () => {
+  const { data = [], refetch } = useGetAllBicyclesQuery('');
+
+  const reloadBicycles = (): void => {
+    refetch();
+  };
+
   return (
     <div className="main-page">
       <Header />
@@ -8,10 +15,10 @@ export const MainPage = () => {
         <div className="container">
           <div className="main-page__container">
             <div className="main-page__bicycles">
-              <BicyclesContainer />
+              <BicyclesContainer bicyclesArr={data} />
             </div>
             <div className="main-page__aside">
-              <BicycleForm />
+              <BicycleForm reloadBicycles={reloadBicycles} />
               <div className="main-page__divider"></div>
               <Statistics />
             </div>

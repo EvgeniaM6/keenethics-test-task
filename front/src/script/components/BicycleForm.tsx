@@ -3,10 +3,12 @@ import { BICYCLE_STATUS, BicycleData, FormValues } from '../models';
 import { NumberInput, TextInput, TextareaElem } from './inputElems';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { setBicycleFormValues } from '../store/bicycleFormSlice';
+import { useAddBicycleMutation } from '../redux/bicycleApi';
 
-export const BicycleForm = () => {
+export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) => {
   const defaultValues = useAppSelector((state) => state.bicycleForm);
   const dispatch = useAppDispatch();
+  const [addBicycle] = useAddBicycleMutation();
 
   const {
     register,
@@ -15,7 +17,7 @@ export const BicycleForm = () => {
     reset,
   } = useForm<FormValues>({ mode: 'onChange', defaultValues });
 
-  const handleSubmitForm: SubmitHandler<FormValues> = (values: FormValues) => {
+  const handleSubmitForm: SubmitHandler<FormValues> = async (values: FormValues) => {
     const newBicycle: BicycleData = {
       ...values,
       status: BICYCLE_STATUS.AVAILABLE,
@@ -23,8 +25,9 @@ export const BicycleForm = () => {
       price: Number(values.price),
     };
 
-    console.log('newBicycle=', newBicycle);
+    await addBicycle(newBicycle);
     reset();
+    reloadBicycles();
   };
 
   const handleChangeForm: React.FormEventHandler<HTMLFormElement> = (e: React.FormEvent) => {
