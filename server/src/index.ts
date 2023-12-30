@@ -1,6 +1,7 @@
 import express, { Express } from 'express';
 import process from 'process';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import bicycleRouter from './bicycleRouter';
 import statsRouter from './statsRouter';
 
@@ -9,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 const MONGO_DB_URL = 'mongodb+srv://evgminukova6:Vgmvk3DwmsDonoUi@cluster0.ed7ekn6.mongodb.net/';
 
 app.use(express.json());
+app.use(cors());
 app.use('/bicycle', bicycleRouter);
 app.use('/stats', statsRouter);
 
