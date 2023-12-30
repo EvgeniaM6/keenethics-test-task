@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { BICYCLE_STATUS, BicycleDBData } from '../models';
+import { BICYCLE_STATUS, BicycleDBData, BicycleData } from '../models';
 import { convertSumToStr } from '../utils';
-import { useDeleteBicycleMutation } from '../redux/bicycleApi';
+import { useChangeStatusBicycleMutation, useDeleteBicycleMutation } from '../redux/bicycleApi';
 
 export const BicycleItem = ({
   bicycle,
@@ -10,9 +10,10 @@ export const BicycleItem = ({
   bicycle: BicycleDBData;
   reloadBicycles: () => void;
 }) => {
-  const { _id, name, type, color, id, status, price } = bicycle;
+  const { _id, name, type, color, id, status, price, wheelSize, description } = bicycle;
 
   const [deleteBicycleInDb] = useDeleteBicycleMutation();
+  const [changeBicycleInDb] = useChangeStatusBicycleMutation();
 
   const [firstLetter, ...letters] = status.split('');
   const statusStr: string = [firstLetter.toUpperCase(), ...letters].join('');
@@ -32,6 +33,23 @@ export const BicycleItem = ({
     reloadBicycles();
   };
 
+  const changeBicycleStatus = async (stat: BICYCLE_STATUS) => {
+    const { _id, name, type, color, id, price } = bicycle;
+    const changedBicycle: BicycleData = {
+      name,
+      type,
+      color,
+      id,
+      price,
+      wheelSize,
+      description,
+      status: stat,
+    };
+    await changeBicycleInDb({ id: _id, bicycle: changedBicycle });
+    toggleIsShowStatuses(false);
+    reloadBicycles();
+  };
+
   return (
     <div className={`main-page__item bicycle ${status}`}>
       <div className="bicycle__info">
@@ -47,7 +65,11 @@ export const BicycleItem = ({
           {isShowStatuses && (
             <div className="status__options">
               {statusesArr.map((stat) => (
-                <button key={stat} className="status__btn">
+                <button
+                  key={stat}
+                  className="status__btn"
+                  onClick={() => changeBicycleStatus(stat)}
+                >
                   {stat}
                 </button>
               ))}
