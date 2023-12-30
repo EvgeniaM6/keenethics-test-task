@@ -6,9 +6,15 @@ enum BICYCLE_STATUS {
   UNAVAILABLE = 'unavailable',
 }
 
-type BicycleData = FormValues & {
+type BicycleData = Omit<FormValues, 'price' | 'wheelSize' | 'status'> & {
+  price: number;
+  wheelSize: number;
+  status: BICYCLE_STATUS;
+};
+
+type BicycleDBData = BicycleData & {
   _id: string;
   __v: number;
 };
 
-export { BICYCLE_STATUS, BicycleData };
+export { BICYCLE_STATUS, BicycleData, BicycleDBData };

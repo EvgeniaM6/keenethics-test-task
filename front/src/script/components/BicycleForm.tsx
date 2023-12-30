@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FormValues } from '../models';
+import { BICYCLE_STATUS, BicycleData, FormValues } from '../models';
 import { NumberInput, TextInput, TextareaElem } from './inputElems';
 
 export const BicycleForm = () => {
@@ -11,7 +11,14 @@ export const BicycleForm = () => {
   } = useForm<FormValues>({ mode: 'onChange' });
 
   const handleSubmitForm: SubmitHandler<FormValues> = (values: FormValues) => {
-    console.log('values=', values);
+    const newBicycle: BicycleData = {
+      ...values,
+      status: BICYCLE_STATUS.AVAILABLE,
+      wheelSize: Number(values.wheelSize),
+      price: Number(values.price),
+    };
+
+    console.log('newBicycle=', newBicycle);
     reset();
   };
 

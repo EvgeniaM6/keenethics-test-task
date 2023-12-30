@@ -1,8 +1,8 @@
-import { BICYCLE_STATUS, BicycleData } from '../models';
+import { BICYCLE_STATUS, BicycleDBData } from '../models';
 import { BicycleItem } from './BicycleItem';
 
 export const BicyclesContainer = () => {
-  const bicyclesArr: BicycleData[] = [
+  const bicyclesArr: BicycleDBData[] = [
     {
       _id: '658d5826c935e0bcf35c72d2',
       name: 'Motobike4',
@@ -32,10 +32,10 @@ export const BicyclesContainer = () => {
   return (
     <>
       {bicyclesArr
-        .sort((bicycle1: BicycleData, bicycle2: BicycleData) =>
+        .sort((bicycle1: BicycleDBData, bicycle2: BicycleDBData) =>
           bicycle1.status.localeCompare(bicycle2.status)
         )
-        .map((bicycle: BicycleData) => {
+        .map((bicycle: BicycleDBData) => {
           return <BicycleItem key={bicycle._id} bicycle={bicycle} />;
         })}
     </>

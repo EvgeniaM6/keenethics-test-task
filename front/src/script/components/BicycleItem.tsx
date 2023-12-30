@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { BICYCLE_STATUS, BicycleData } from '../models';
+import { BICYCLE_STATUS, BicycleDBData } from '../models';
 import { convertSumToStr } from '../utils';
 
-export const BicycleItem = ({ bicycle }: { bicycle: BicycleData }) => {
+export const BicycleItem = ({ bicycle }: { bicycle: BicycleDBData }) => {
   const { name, type, color, id, status, price } = bicycle;
 
   const [firstLetter, ...letters] = status.split('');
