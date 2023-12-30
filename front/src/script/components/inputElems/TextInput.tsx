@@ -1,6 +1,9 @@
-import { TextInputProps } from '../../models';
+import { BicycleDBData, TextInputProps } from '../../models';
+import { useGetAllBicyclesQuery } from '../../redux/bicycleApi';
 
 export const TextInput = ({ id, placeholder, register, errors }: TextInputProps) => {
+  const { data } = useGetAllBicyclesQuery('');
+
   const error = errors[id];
   const minSymbols = 5;
 
@@ -17,6 +20,13 @@ export const TextInput = ({ id, placeholder, register, errors }: TextInputProps)
           minLength: {
             value: minSymbols,
             message: `Minimum ${minSymbols} symbols`,
+          },
+          validate: (value: string) => {
+            if (id !== 'id' || !data) return true;
+            const foundIndexSameId = (data as BicycleDBData[]).findIndex(
+              (bicycle: BicycleDBData) => bicycle.id === value
+            );
+            return foundIndexSameId === -1 || 'This id already exists. Enter another';
           },
         })}
       />
