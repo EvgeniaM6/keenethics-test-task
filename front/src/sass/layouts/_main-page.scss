@@ -7,6 +7,7 @@
   }
 
   &__bicycles {
+    position: relative;
     flex-grow: 1;
     padding: 9px 9px 0 12px;
     border-right: 1px solid $color-divider;
@@ -17,10 +18,23 @@
   }
 
   &__form {
+    position: relative;
     width: 501.45px;
     margin-right: 11.55px;
     margin-bottom: 4px;
     padding: 10px;
+  }
+
+  &__overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    background: radial-gradient(#00000085, #00000055, #00000000, #00000000);
+    align-items: center;
   }
 
   &__divider {

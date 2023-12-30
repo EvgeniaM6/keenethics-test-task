@@ -4,11 +4,15 @@ import { NumberInput, TextInput, TextareaElem } from './inputElems';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { resetBicycleFormValues, setBicycleFormValues } from '../store/bicycleFormSlice';
 import { useAddBicycleMutation } from '../redux/bicycleApi';
+import { useState } from 'react';
+import { Loading } from './Loading';
 
 export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) => {
   const defaultValues = useAppSelector((state) => state.bicycleForm);
   const dispatch = useAppDispatch();
   const [addBicycle] = useAddBicycleMutation();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -18,6 +22,7 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
   } = useForm<FormValues>({ mode: 'onChange', defaultValues });
 
   const handleSubmitForm: SubmitHandler<FormValues> = async (values: FormValues) => {
+    setIsLoading(true);
     const newBicycle: BicycleData = {
       ...values,
       status: BICYCLE_STATUS.AVAILABLE,
@@ -29,6 +34,7 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
     reset();
     dispatch(resetBicycleFormValues());
     reloadBicycles();
+    setIsLoading(false);
   };
 
   const handleChangeForm: React.FormEventHandler<HTMLFormElement> = (e: React.FormEvent) => {
@@ -82,6 +88,7 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
           </button>
         </div>
       </form>
+      {isLoading && <Loading />}
     </div>
   );
 };

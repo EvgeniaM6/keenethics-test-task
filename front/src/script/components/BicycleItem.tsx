@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BICYCLE_STATUS, BicycleDBData, BicycleData } from '../models';
 import { convertSumToStr } from '../utils';
 import { useChangeStatusBicycleMutation, useDeleteBicycleMutation } from '../redux/bicycleApi';
+import { Loading } from './Loading';
 
 export const BicycleItem = ({
   bicycle,
@@ -12,8 +13,8 @@ export const BicycleItem = ({
 }) => {
   const { _id, name, type, color, id, status, price, wheelSize, description } = bicycle;
 
-  const [deleteBicycleInDb] = useDeleteBicycleMutation();
-  const [changeBicycleInDb] = useChangeStatusBicycleMutation();
+  const [deleteBicycleInDb, { isLoading: isDeletingLoading }] = useDeleteBicycleMutation();
+  const [changeBicycleInDb, { isLoading: isChangingLoading }] = useChangeStatusBicycleMutation();
 
   const [firstLetter, ...letters] = status.split('');
   const statusStr: string = [firstLetter.toUpperCase(), ...letters].join('');
@@ -83,6 +84,7 @@ export const BicycleItem = ({
       <div className="bicycle__cross">
         <button className="bicycle__cross-btn" onClick={deleteBicycle} />
       </div>
+      {(isDeletingLoading || isChangingLoading) && <Loading />}
     </div>
   );
 };

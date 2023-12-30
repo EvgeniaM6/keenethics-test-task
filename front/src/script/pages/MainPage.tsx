@@ -1,8 +1,8 @@
 import { useGetAllBicyclesQuery } from '../redux/bicycleApi';
-import { BicycleForm, BicyclesContainer, Footer, Header, Statistics } from '../components';
+import { BicycleForm, BicyclesContainer, Footer, Header, Loading, Statistics } from '../components';
 
 export const MainPage = () => {
-  const { data = [], refetch } = useGetAllBicyclesQuery('');
+  const { data = [], isLoading, refetch } = useGetAllBicyclesQuery('');
 
   const reloadBicycles = (): void => {
     refetch();
@@ -16,6 +16,7 @@ export const MainPage = () => {
           <div className="main-page__container">
             <div className="main-page__bicycles">
               <BicyclesContainer bicyclesArr={data} reloadBicycles={reloadBicycles} />
+              {isLoading && <Loading />}
             </div>
             <div className="main-page__aside">
               <BicycleForm reloadBicycles={reloadBicycles} />
