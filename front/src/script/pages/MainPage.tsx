@@ -15,7 +15,7 @@ export const MainPage = () => {
         <div className="container">
           <div className="main-page__container">
             <div className="main-page__bicycles">
-              <BicyclesContainer bicyclesArr={data} />
+              <BicyclesContainer bicyclesArr={data} reloadBicycles={reloadBicycles} />
             </div>
             <div className="main-page__aside">
               <BicycleForm reloadBicycles={reloadBicycles} />

@@ -27,7 +27,18 @@ export const bicycleApi = createApi({
         body: JSON.stringify(values),
       }),
     }),
+    deleteBicycle: build.mutation<unknown, string>({
+      query: (id: string) => ({
+        url: `/${PARTIAL_URL.BICYCLE}/${id}/`,
+        method: REQUEST_METHODS.DELETE,
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': 'no-cors',
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetAllBicyclesQuery, useAddBicycleMutation } = bicycleApi;
+export const { useGetAllBicyclesQuery, useDeleteBicycleMutation, useAddBicycleMutation } =
+  bicycleApi;

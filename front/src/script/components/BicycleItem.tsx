@@ -1,9 +1,18 @@
 import { useState } from 'react';
 import { BICYCLE_STATUS, BicycleDBData } from '../models';
 import { convertSumToStr } from '../utils';
+import { useDeleteBicycleMutation } from '../redux/bicycleApi';
 
-export const BicycleItem = ({ bicycle }: { bicycle: BicycleDBData }) => {
-  const { name, type, color, id, status, price } = bicycle;
+export const BicycleItem = ({
+  bicycle,
+  reloadBicycles,
+}: {
+  bicycle: BicycleDBData;
+  reloadBicycles: () => void;
+}) => {
+  const { _id, name, type, color, id, status, price } = bicycle;
+
+  const [deleteBicycleInDb] = useDeleteBicycleMutation();
 
   const [firstLetter, ...letters] = status.split('');
   const statusStr: string = [firstLetter.toUpperCase(), ...letters].join('');
@@ -16,6 +25,11 @@ export const BicycleItem = ({ bicycle }: { bicycle: BicycleDBData }) => {
 
   const toggleStatuses = (): void => {
     toggleIsShowStatuses(!isShowStatuses);
+  };
+
+  const deleteBicycle = async () => {
+    await deleteBicycleInDb(_id);
+    reloadBicycles();
   };
 
   return (
@@ -45,7 +59,7 @@ export const BicycleItem = ({ bicycle }: { bicycle: BicycleDBData }) => {
         <p>{`${convertSumToStr(price)} UAH/hr.`}</p>
       </div>
       <div className="bicycle__cross">
-        <button className="bicycle__cross-btn" />
+        <button className="bicycle__cross-btn" onClick={deleteBicycle} />
       </div>
     </div>
   );
