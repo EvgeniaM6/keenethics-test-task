@@ -1,14 +1,19 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { BICYCLE_STATUS, BicycleData, FormValues } from '../models';
 import { NumberInput, TextInput, TextareaElem } from './inputElems';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { setBicycleFormValues } from '../store/bicycleFormSlice';
 
 export const BicycleForm = () => {
+  const defaultValues = useAppSelector((state) => state.bicycleForm);
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<FormValues>({ mode: 'onChange' });
+  } = useForm<FormValues>({ mode: 'onChange', defaultValues });
 
   const handleSubmitForm: SubmitHandler<FormValues> = (values: FormValues) => {
     const newBicycle: BicycleData = {
@@ -22,9 +27,18 @@ export const BicycleForm = () => {
     reset();
   };
 
+  const handleChangeForm: React.FormEventHandler<HTMLFormElement> = (e: React.FormEvent) => {
+    const { value, id: field } = e.target as HTMLInputElement;
+    dispatch(setBicycleFormValues({ ...defaultValues, [field]: value }));
+  };
+
   return (
     <div className="main-page__form">
-      <form action="" className="bicycle-form" onSubmit={handleSubmit(handleSubmitForm)}>
+      <form
+        className="bicycle-form"
+        onSubmit={handleSubmit(handleSubmitForm)}
+        onChange={handleChangeForm}
+      >
         <div className="bicycle-form__grid-2col">
           <TextInput id="name" placeholder="Name" register={register} errors={errors} />
           <TextInput id="type" placeholder="Type" register={register} errors={errors} />
