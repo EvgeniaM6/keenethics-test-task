@@ -60,46 +60,25 @@ class BicycleController {
     }
   }
 
-  async getAllAmount(req: Express.Request, res: Express.Response) {
-    try {
-      const bicyclesArr = await BicycleService.getAll();
-      res.json({ amount: bicyclesArr.length });
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }
-
-  async getAllAvailableAmount(req: Express.Request, res: Express.Response) {
-    try {
-      const bicyclesArr = await BicycleService.getAllAvailable();
-      res.json({ amount: bicyclesArr.length });
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }
-
-  async getAllBookedAmount(req: Express.Request, res: Express.Response) {
-    try {
-      const bicyclesArr = await BicycleService.getAllBooked();
-      res.json({ amount: bicyclesArr.length });
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }
-
-  async getAveragePrice(req: Express.Request, res: Express.Response) {
+  async getStats(req: Express.Request, res: Express.Response) {
     try {
       const bicyclesArr = await BicycleService.getAll();
       const bicyclesAmount = bicyclesArr.length;
+      const availableBicyclesArr = await BicycleService.getAllAvailable();
+      const bookedBicyclesArr = await BicycleService.getAllBooked();
 
-      if (bicyclesAmount === 0) {
-        res.json({ averagePrice: 0 });
-        return;
+      let averagePrice = 0;
+      if (bicyclesAmount > 0) {
+        const sumBicyclePrice = bicyclesArr.reduce((acc, bicycle) => (acc += bicycle.price), 0);
+        averagePrice = Number((sumBicyclePrice / bicyclesAmount).toFixed(2));
       }
 
-      const sumBicyclePrice = bicyclesArr.reduce((acc, bicycle) => (acc += bicycle.price), 0);
-      const averagePrice = sumBicyclePrice / bicyclesAmount;
-      res.json({ averagePrice });
+      res.json({
+        total: bicyclesAmount,
+        available: availableBicyclesArr.length,
+        booked: bookedBicyclesArr.length,
+        averagePrice,
+      });
     } catch (error) {
       res.status(500).json(error);
     }
