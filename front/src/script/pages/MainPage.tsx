@@ -1,12 +1,19 @@
 import { useGetAllBicyclesQuery } from '../redux/bicycleApi';
 import { BicycleForm, BicyclesContainer, Footer, Header, Loading, Statistics } from '../components';
+import { useEffect } from 'react';
+import { showError } from '../utils';
 
 export const MainPage = () => {
-  const { data = [], isLoading, refetch } = useGetAllBicyclesQuery('');
+  const { data = [], isLoading, isError, error, refetch } = useGetAllBicyclesQuery('');
 
   const reloadBicycles = (): void => {
     refetch();
   };
+
+  useEffect(() => {
+    if (!isError || !error) return;
+    showError(error);
+  }, [isError, error]);
 
   return (
     <div className="main-page">
@@ -15,7 +22,11 @@ export const MainPage = () => {
         <div className="container">
           <div className="main-page__container">
             <div className="main-page__bicycles">
-              <BicyclesContainer bicyclesArr={data} reloadBicycles={reloadBicycles} />
+              {data.length ? (
+                <BicyclesContainer bicyclesArr={data} reloadBicycles={reloadBicycles} />
+              ) : (
+                <p className="main-page__empty">No data</p>
+              )}
               {isLoading && <Loading />}
             </div>
             <div className="main-page__aside">

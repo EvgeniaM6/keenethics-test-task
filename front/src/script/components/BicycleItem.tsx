@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BICYCLE_STATUS, BicycleDBData, BicycleData } from '../models';
-import { convertSumToStr } from '../utils';
+import { convertSumToStr, showError } from '../utils';
 import { useChangeStatusBicycleMutation, useDeleteBicycleMutation } from '../redux/bicycleApi';
 import { Loading } from './Loading';
 
@@ -13,8 +13,14 @@ export const BicycleItem = ({
 }) => {
   const { _id, name, type, color, id, status, price, wheelSize, description } = bicycle;
 
-  const [deleteBicycleInDb, { isLoading: isDeletingLoading }] = useDeleteBicycleMutation();
-  const [changeBicycleInDb, { isLoading: isChangingLoading }] = useChangeStatusBicycleMutation();
+  const [
+    deleteBicycleInDb,
+    { isLoading: isDeletingLoading, isError: isDeletingError, error: deletingError },
+  ] = useDeleteBicycleMutation();
+  const [
+    changeBicycleInDb,
+    { isLoading: isChangingLoading, isError: isChangingError, error: changingError },
+  ] = useChangeStatusBicycleMutation();
 
   const [firstLetter, ...letters] = status.split('');
   const statusStr: string = [firstLetter.toUpperCase(), ...letters].join('');
@@ -50,6 +56,16 @@ export const BicycleItem = ({
     toggleIsShowStatuses(false);
     reloadBicycles();
   };
+
+  useEffect(() => {
+    if (!isDeletingError || !deletingError) return;
+    showError(deletingError);
+  }, [isDeletingError, deletingError]);
+
+  useEffect(() => {
+    if (!isChangingError || !changingError) return;
+    showError(changingError);
+  }, [isChangingError, changingError]);
 
   return (
     <div className={`main-page__item bicycle ${status}`}>

@@ -4,13 +4,14 @@ import { NumberInput, TextInput, TextareaElem } from './inputElems';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { resetBicycleFormValues, setBicycleFormValues } from '../store/bicycleFormSlice';
 import { useAddBicycleMutation } from '../redux/bicycleApi';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Loading } from './Loading';
+import { showError } from '../utils';
 
 export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) => {
   const defaultValues = useAppSelector((state) => state.bicycleForm);
   const dispatch = useAppDispatch();
-  const [addBicycle] = useAddBicycleMutation();
+  const [addBicycle, { isError, error }] = useAddBicycleMutation();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,6 +42,11 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
     const { value, id: field } = e.target as HTMLInputElement;
     dispatch(setBicycleFormValues({ ...defaultValues, [field]: value }));
   };
+
+  useEffect(() => {
+    if (!isError || !error) return;
+    showError(error);
+  }, [isError, error]);
 
   return (
     <div className="main-page__form">
