@@ -2,6 +2,7 @@ const BASE_URL = 'http://localhost:3000/';
 
 enum PARTIAL_URL {
   BICYCLE = 'bicycle',
+  STATS = 'stats',
 }
 
 enum REQUEST_METHODS {
