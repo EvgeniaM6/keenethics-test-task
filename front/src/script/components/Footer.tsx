@@ -1,6 +1,6 @@
 export const Footer = () => {
-  const firstName = 'FirstName';
-  const lastName = 'LastName';
+  const firstName = 'Yevheniia';
+  const lastName = 'Miniukova';
 
   return (
     <footer className="footer">

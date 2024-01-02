@@ -43,6 +43,10 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
     dispatch(setBicycleFormValues({ ...defaultValues, [field]: value }));
   };
 
+  const handleClear = () => {
+    reset();
+  };
+
   useEffect(() => {
     if (!isError || !error) return;
     showError(error);
@@ -89,7 +93,7 @@ export const BicycleForm = ({ reloadBicycles }: { reloadBicycles: () => void }) 
           <button type="submit" className="bicycle-form__btn">
             {'Save'.toUpperCase()}
           </button>
-          <button type="reset" className="bicycle-form__btn" onClick={reset}>
+          <button type="reset" className="bicycle-form__btn" onClick={handleClear}>
             {'Clear'.toUpperCase()}
           </button>
         </div>
