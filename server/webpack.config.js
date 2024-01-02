@@ -7,7 +7,7 @@ module.exports = (env, options) => {
   const isProduction = options.mode === 'production';
   const config = {
     target: 'node',
-    entry: './index.ts',
+    entry: './src/index.ts',
     plugins: [
       new CleanWebpackPlugin(),
       new EslintPlugin({ extensions: ['ts', 'js'] }),
