@@ -5,6 +5,8 @@ Layout link: https://www.figma.com/file/pIU4QX9TlF6vOw1x1Vf8yB/ADMIN.BIKE-BOOKIN
 
 Front-end deploy: https://admin-bike-booking.netlify.app/
 
+Demo video: https://youtu.be/Mjpk-K5eyJ8
+
 App is able to do the following:
 
 - user can add a bicycle with fields (ID, name, type, color, wheel size, price, description)
