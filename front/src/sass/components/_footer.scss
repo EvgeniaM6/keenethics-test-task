@@ -1,0 +1,26 @@
+.footer {
+  display: flex;
+  align-items: center;
+  background-color: $color-main;
+  height: 42px;
+  
+  &__container {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+
+    .dev {
+      font-size: 20px;
+      line-height: 31.48px;
+  
+      &__title {
+        color: $color-font-light-muted;
+        margin-right: 10px;
+      }
+  
+      &__name {
+        color: $color-font-light;
+      }
+    }
+  }
+}

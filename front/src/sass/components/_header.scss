@@ -1,0 +1,17 @@
+.header {
+  background-color: $color-main;
+  height: 42px;
+
+  &__container {
+    padding-left: 16px;
+
+    .logo {
+      font-family: 'Saira Stencil One', sans-serif;
+      font-size: 24px;
+      line-height: 37.78px;
+      font-weight: 400;
+      color: $color-font-logo;
+      padding-top: 4px;
+    }
+  }
+}
